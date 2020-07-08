@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/metro4/build/css/metro-all.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +124,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "EditeurStrategie"
+    }
+  },
+  "defaultProject": "EditeurStrategie",
+  "cli": {
+    "analytics": "8c9f69a2-db6e-4ba4-a4bf-0c2c20246cd3"
+  }
 }
