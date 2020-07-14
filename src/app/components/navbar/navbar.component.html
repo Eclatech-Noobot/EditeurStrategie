@@ -17,6 +17,8 @@
       <a href="#" class="dropdown-toggle">Édition</a>
       <ul class="d-menu" data-role="dropdown">
         <li><a href=""><span class="mif-undo icon"></span> Annuler</a></li>
+        <li class="divider bg-lightGray"></li>
+        <li><a href=""><img class="icon" src="assets/images/navbar/invert.png"/> Inverser la stratégie</a></li>
       </ul>
     </li>
     <li>
@@ -24,8 +26,8 @@
       <ul class="d-menu" data-role="dropdown">
         <li><a href=""><span class="mif-question icon"></span> Aide</a></li>
         <li class="divider bg-lightGray"></li>
-        <li><a href=""><span class="mif-bug icon"></span> Signaler un bug</a></li>
-        <li><a href=""><span class="mif-info icon"></span> A propos</a></li>
+        <li><a href="https://github.com/Eclatech-Noobot/EditeurStrategie/issues" target="_blank"><span class="mif-bug icon"></span> Signaler un bug</a></li>
+        <li><a (click)="openAboutDialog()"><span class="mif-info icon"></span> A propos</a></li>
       </ul>
     </li>
   </ul>
