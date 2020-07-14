@@ -10,11 +10,66 @@
     </div>
   </div>
 
-  <div class="sidebar-menu">
-    <p>Liste des positions</p>
-    <select data-role="select">
-        <option value="1">1</option>
-    </select>
-  </div>
+  <ul class="sidebar-menu">
+    <li>
+      <m4-select prepend="Liste des positions">
+          <option value="1">1</option>
+      </m4-select>
+    </li>
+
+    <li>
+      <m4-input prepend="X"></m4-input>
+    </li>
+
+    <li>
+      <m4-input  prepend="Y"></m4-input>
+    </li>
+
+    <li>
+      <m4-input  prepend="Angle"></m4-input>
+    </li>
+
+    <li>
+      <m4-input prepend="Delta angle"></m4-input>
+    </li>
+
+    <li>
+      <m4-input  prepend="Delta déplacement"></m4-input>
+    </li>
+
+    <li>
+      <m4-input prepend="Vitesse maximum"></m4-input>
+    </li>
+
+    <li>
+      <m4-checkbox caption="Attente Action" caption-position="left"></m4-checkbox>
+    </li>
+
+    <li>
+      <m4-input prepend="Timeout"></m4-input>
+    </li>
+
+    <li>
+      <m4-select prepend="Fichier action">
+        <optgroup label="Stepper">
+          <option value="Monter Ascenseur" selected="selected">Monter Ascenseur</option>
+          <option value="Descendre Ascenseur">Descendre Ascenseur</option>
+        </optgroup>
+        <optgroup label="Servos">
+          <option value="mini">Mini</option>
+          <option value="site">Site</option>
+          <option value="portal">Portal</option>
+        </optgroup>
+        <optgroup label="Divers">
+          <option value="Front Flip">Front Flip</option>
+          <option value="Back Flip">Back Flip</option>
+        </optgroup>
+      </m4-select>
+    </li>
+
+    <li>
+      <m4-textarea placeholder="Commentaire"></m4-textarea>
+    </li>
+  </ul>
 
 </aside>
