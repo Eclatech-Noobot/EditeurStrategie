@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {ShortcutInput} from "ng-keyboard-shortcuts";
+import {KeyboardShortcutManagerService} from "./services/keyboard-shortcut-manager/keyboard-shortcut-manager.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'EditeurStrategie';
+  shortcuts: ShortcutInput[] = [];
+
+  constructor(private kbms: KeyboardShortcutManagerService) {
+    this.shortcuts = this.kbms.getShortcuts();
+  }
 }
