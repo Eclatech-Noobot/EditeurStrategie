@@ -1,19 +1,36 @@
 .dev {
-  margin-top: 60px;
-  height: calc(100vh - 100px);
+  margin-top: 52px;
+  height: calc(100vh - 52px);
   width: 100%;
+  align-items: center;
 }
 
-.canvas {
+.card {
+  height: calc(100vh - 52px);
+  margin: 0;
+  width: max-content;
+  display: inline-block;
+}
+
+.card-content {
+  height: 90%;
+  display: inline-block;
+  width: max-content;
+}
+
+.card-footer {
+  height: 10%;
+  width: max-content;
+}
+
+.tablePicture {
   height: 100%;
-}
-
-.tableImg {
-  display: block;
-  position: absolute;
-  max-height: 100%;
 }
 
 .robotDragZone {
   z-index: 99;
+}
+
+.steps {
+  min-width: 100%;
 }

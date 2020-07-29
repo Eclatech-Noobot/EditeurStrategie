@@ -9,6 +9,7 @@ import {FirebaseStorageManagerService} from "../firebase-storage-manager/firebas
 export class StrategieManagerService {
 
   currentStrategie: Strategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
+  currentPosition: Position = new Position(0,0,0,0,0,0,false,0,"","");
   isSaved = false;
 
   constructor(public fsm: FirebaseStorageManagerService) {
@@ -21,6 +22,8 @@ export class StrategieManagerService {
 
   newStrategie(){
     this.currentStrategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
+    this.currentPosition = new Position(0,0,0,0,0,0,false,0,"","");
+    this.currentStrategie.positions.push(this.currentPosition);
   }
 
   loadStrategie(name: string) {

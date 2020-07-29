@@ -15,4 +15,13 @@ export class Strategie {
     this.version = version;
     this.positions = positions;
   }
+
+  addPosition(position: Position) {
+
+    let newPositions: Array<Position> = new Array<Position>();
+    for (let pos of this.positions) {
+      if (pos.index === position.index) newPositions.push(position);
+      else newPositions.push(pos);
+    }
+  }
 }
