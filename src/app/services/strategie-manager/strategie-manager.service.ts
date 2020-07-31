@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import {Strategie} from "../../model/strategie/strategie";
 import {Position} from "../../model/position/position";
 import {FirebaseStorageManagerService} from "../firebase-storage-manager/firebase-storage-manager.service";
+import {Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class StrategieManagerService {
 
-  currentStrategie: Strategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
-  currentPosition: Position = new Position(0,0,0,0,0,0,false,0,"","");
+  currentStrategie: Strategie;
+  currentPosition: Subject<Position> = new Subject<Position>();
   isSaved = false;
 
   constructor(public fsm: FirebaseStorageManagerService) {
-
+    this.newStrategie();
   }
 
   saveStrategie(){
@@ -22,8 +23,8 @@ export class StrategieManagerService {
 
   newStrategie(){
     this.currentStrategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
-    this.currentPosition = new Position(0,0,0,0,0,0,false,0,"","");
-    this.currentStrategie.positions.push(this.currentPosition);
+    this.currentPosition.next(new Position(0,0,0,0,0,0,0,false,0,"",""));
+    this.currentStrategie.positions.push(new Position(0,0,0,0,0,0,0,false,0,"",""));
   }
 
   loadStrategie(name: string) {

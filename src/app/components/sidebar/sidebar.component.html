@@ -13,7 +13,7 @@
   <ul class="sidebar-menu">
     <li>
       <m4-select prepend="Liste des positions">
-          <option value="1">1</option>
+          <option *ngFor="let pos of strategieManager.currentStrategie.positions" [value]="pos.index"> {{pos.index}} </option>
       </m4-select>
     </li>
     <div class="grid">
@@ -33,35 +33,35 @@
       </div>
     </div>
     <li>
-      <m4-input prepend="X"></m4-input>
+      <m4-input prepend="X" [(ngModel)]="currentPosition.xpos"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Y"></m4-input>
+      <m4-input  prepend="Y" [(ngModel)]="currentPosition.ypos"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Angle"></m4-input>
+      <m4-input  prepend="Angle" [(ngModel)]="currentPosition.angle"></m4-input>
     </li>
 
     <li>
-      <m4-input prepend="Delta angle"></m4-input>
+      <m4-input prepend="Delta angle" [(ngModel)]="currentPosition.deltaAngle"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Delta déplacement"></m4-input>
+      <m4-input  prepend="Delta déplacement" [(ngModel)]="currentPosition.deltaDeplacement"></m4-input>
     </li>
 
     <li>
-      <m4-input prepend="Vitesse maximum"></m4-input>
+      <m4-input prepend="Vitesse maximum" [(ngModel)]="currentPosition.vitesseMax"></m4-input>
     </li>
 
     <li>
-      <m4-checkbox caption="Attente Action" caption-position="left"></m4-checkbox>
+      <m4-checkbox caption="Attente Action" caption-position="left" [(ngModel)]="currentPosition.attenteAction"></m4-checkbox>
     </li>
 
     <li>
-      <m4-input prepend="Timeout"></m4-input>
+      <m4-input prepend="Timeout" [(ngModel)]="currentPosition.timeout"></m4-input>
     </li>
 
     <li>
