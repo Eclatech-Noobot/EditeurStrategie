@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {StrategieManagerService} from "../../services/strategie-manager/strategie-manager.service";
 import {Position} from "../../model/position/position";
+import {Strategie} from "../../model/strategie/strategie";
 
 @Component({
   selector: 'sidebar',
@@ -9,12 +10,18 @@ import {Position} from "../../model/position/position";
 })
 export class SidebarComponent implements OnInit {
 
+  @ViewChild("selectPosition", { static: true }) selectPosition: any;
   currentPosition: Position = new Position(0,150,150,0,0,0,0,false,0,"","");
-
+  currentStrategie: Strategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
 
   constructor(public strategieManager: StrategieManagerService) {
-    this.strategieManager.currentPosition.subscribe( value => this.currentPosition = value);
-    console.log("Strategie : ",this.strategieManager.currentStrategie);
+    this.strategieManager.currentPosition.subscribe( value => {
+      this.currentPosition = value;
+    });
+    this.strategieManager.currentStrategie.subscribe( value => {
+      this.currentStrategie = value;
+    });
+    this.strategieManager.refreshValues();
   }
 
   ngOnInit(): void {
@@ -26,7 +33,6 @@ export class SidebarComponent implements OnInit {
   Called when we need to dispatch the new position to the Strategie Manager
    */
   updatePosition() {
-    console.log("Current Pos : ",this.currentPosition);
     // Check position values and replace them if needed
     if (this.currentPosition.xpos < 150) this.currentPosition.xpos = 150;
     if (this.currentPosition.ypos < 150) this.currentPosition.ypos = 150;
@@ -36,11 +42,10 @@ export class SidebarComponent implements OnInit {
   }
 
   newPosition() {
-    console.log("New position");
     this.strategieManager.createPosition();
   }
 
-  updateSelectedPosition($event: Event) {
-    console.log("Select change : ",$event);
+  updateSelectedPosition($event) {
+    this.strategieManager.setCurrentPosition($event.target.value);
   }
 }

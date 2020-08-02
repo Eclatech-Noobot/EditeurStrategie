@@ -9,7 +9,8 @@ import {Subject} from "rxjs";
 })
 export class StrategieManagerService {
 
-  currentStrategie: Strategie;
+  currentStrat: Strategie;
+  currentStrategie: Subject<Strategie> = new Subject<Strategie>();
   currentPos: Position = new Position(0,150,150,0,0,0,0,false,0,"","");
   currentPosition: Subject<Position> = new Subject<Position>();
   isSaved = false;
@@ -17,45 +18,55 @@ export class StrategieManagerService {
   constructor(public fsm: FirebaseStorageManagerService) {
     this.newStrategie();
     this.currentPosition.subscribe( val => this.currentPos = val);
+    this.currentStrategie.subscribe( val => this.currentStrat = val);
   }
 
   saveStrategie(){
-    this.fsm.saveStrategie(this.currentStrategie).then( () => this.isSaved = true).catch( err => console.error("Error while saving strategy : ",err));
+    this.fsm.saveStrategie(this.currentStrat).then( () => this.isSaved = true).catch( err => console.error("Error while saving strategy : ",err));
   }
 
   newStrategie(){
-    this.currentStrategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
+    this.currentStrat = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
     this.currentPosition.next(new Position(0,150,150,0,0,0,0,false,0,"",""));
-    this.currentStrategie.positions.push(new Position(0,150,0,0,0,0,0,false,0,"",""));
+    this.currentStrat.positions.push(new Position(0,150,0,0,0,0,0,false,0,"",""));
+    this.currentStrategie.next(this.currentStrat);
   }
 
   loadStrategie(name: string) {
-    this.currentStrategie = this.fsm.getStrategie(name);
+    this.currentStrat = this.fsm.getStrategie(name);
+    this.currentStrategie.next(this.currentStrat);
   }
 
   saveCurrentPosition() {
-    console.log("Saving position : ",this.currentPos);
     let newPositionsArray: Array<Position> = new Array<Position>();
-    for (let pos of this.currentStrategie.positions) {
+    for (let pos of this.currentStrat.positions) {
       if (pos.index === this.currentPos.index) newPositionsArray.push(this.currentPos);
       else newPositionsArray.push(pos);
     }
-    console.log("Saved postion, strategy : ",this.currentStrategie);
-    this.currentStrategie.positions = newPositionsArray;
+    this.currentStrat.positions = newPositionsArray;
+    this.currentStrategie.next(this.currentStrat);
   }
 
   createPosition() {
     this.saveCurrentPosition();
-    let pos: Position = new Position(this.currentStrategie.positions.length,150,150,0,0,0,0,false,0,"","");
-    this.currentStrategie.positions.push(pos);
-
-    console.log("Positions : ",this.currentStrategie.positions);
-
+    let pos: Position = new Position(this.currentStrat.positions.length,150,150,0,0,0,0,false,0,"","");
+    this.currentStrat.positions.push(pos);
     this.currentPosition.next(pos);
+    this.currentStrategie.next(this.currentStrat);
   }
 
   setCurrentPosition(index: number){
     this.saveCurrentPosition();
-    for (let pos of this.currentStrategie.positions) if (pos.index === index) this.currentPosition.next(pos);
+    for (let pos of this.currentStrat.positions) {
+      if (pos.index == index) {
+        this.currentPos = pos;
+        this.currentPosition.next(pos);
+      }
+    }
+  }
+
+  refreshValues(){
+    this.currentStrategie.next(this.currentStrat);
+    this.currentPosition.next(this.currentPos);
   }
 }

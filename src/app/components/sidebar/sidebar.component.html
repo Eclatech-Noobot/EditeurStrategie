@@ -12,9 +12,9 @@
 
   <ul class="sidebar-menu">
     <li>
-      <m4-select prepend="Liste des positions" [(ngModel)]="currentPosition.index" (ngModelChange)="updateSelectedPosition($event)">
-          <option *ngFor="let pos of strategieManager.currentStrategie.positions" [value]="pos.index"> {{pos.index}} </option>
-      </m4-select>
+      <select #selectPosition prepend="Liste des positions" (change)="updateSelectedPosition($event)">
+          <option *ngFor="let pos of currentStrategie.positions" [value]="pos.index" [selected]="currentPosition.index == pos.index"> {{pos.index}} </option>
+      </select>
     </li>
     <div class="grid">
       <div class="row">
@@ -83,7 +83,7 @@
     </li>
 
     <li>
-      <m4-textarea placeholder="Commentaire"></m4-textarea>
+      <m4-textarea placeholder="Commentaire" [(ngModel)]="currentPosition.commentaire"></m4-textarea>
     </li>
   </ul>
 
