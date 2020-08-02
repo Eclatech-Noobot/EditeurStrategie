@@ -9,8 +9,8 @@ import {Position} from "../../model/position/position";
 })
 export class SidebarComponent implements OnInit {
 
+  currentPosition: Position = new Position(0,150,150,0,0,0,0,false,0,"","");
 
-  currentPosition: Position = new Position(0,0,0,0,0,0,0,false,0,"","");
 
   constructor(public strategieManager: StrategieManagerService) {
     this.strategieManager.currentPosition.subscribe( value => this.currentPosition = value);
@@ -21,4 +21,26 @@ export class SidebarComponent implements OnInit {
 
   }
 
+
+  /*
+  Called when we need to dispatch the new position to the Strategie Manager
+   */
+  updatePosition() {
+    console.log("Current Pos : ",this.currentPosition);
+    // Check position values and replace them if needed
+    if (this.currentPosition.xpos < 150) this.currentPosition.xpos = 150;
+    if (this.currentPosition.ypos < 150) this.currentPosition.ypos = 150;
+    if (this.currentPosition.xpos > 2850) this.currentPosition.xpos = 2850;
+    if (this.currentPosition.ypos > 1850) this.currentPosition.ypos = 1850;
+    this.strategieManager.currentPosition.next(this.currentPosition);
+  }
+
+  newPosition() {
+    console.log("New position");
+    this.strategieManager.createPosition();
+  }
+
+  updateSelectedPosition($event: Event) {
+    console.log("Select change : ",$event);
+  }
 }

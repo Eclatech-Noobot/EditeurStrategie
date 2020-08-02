@@ -12,11 +12,11 @@
   </div>-->
   <div class="card">
     <div class="card-content">
-      <div m4-draggable><img src="assets/images/Robot.png"></div>
-      <img class="tablePicture" src="assets/images/Tapis_de_jeu.png">
+      <div m4-draggable (dragStop)="onDragged($event)" [ngStyle]="{transform: 'rotate('+currentPosition.angle+'deg)'}"><img src="assets/images/Robot.png" [height]="robotHeight" [width]="robotWidth"></div>
+      <img #table class="tablePicture" src="assets/images/Tapis_de_jeu.png">
     </div>
     <div class="card-footer">
-      <div class="steps" data-role="stepper" data-steps="5" data-step="3"></div>
+      <div class="steps" data-role="stepper" data-steps="5" data-step="3" [ngStyle]="{width: this.img.nativeElement.width == 0 ? 200 : this.img.nativeElement.width}"></div>
     </div>
   </div>
 </div>

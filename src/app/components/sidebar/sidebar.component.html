@@ -12,14 +12,14 @@
 
   <ul class="sidebar-menu">
     <li>
-      <m4-select prepend="Liste des positions">
+      <m4-select prepend="Liste des positions" [(ngModel)]="currentPosition.index" (ngModelChange)="updateSelectedPosition($event)">
           <option *ngFor="let pos of strategieManager.currentStrategie.positions" [value]="pos.index"> {{pos.index}} </option>
       </m4-select>
     </li>
     <div class="grid">
       <div class="row">
         <div class="cell">
-          <button m4-button special-btn="image">
+          <button m4-button special-btn="image" (click)="newPosition()">
             <span class="mif-add icon"></span>
             <span class="caption">Ajouter</span>
           </button>
@@ -33,27 +33,27 @@
       </div>
     </div>
     <li>
-      <m4-input prepend="X" [(ngModel)]="currentPosition.xpos"></m4-input>
+      <m4-input prepend="X" append="mm" type="number" [(ngModel)]="currentPosition.xpos" (ngModelChange)="updatePosition()"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Y" [(ngModel)]="currentPosition.ypos"></m4-input>
+      <m4-input  prepend="Y" append="mm" type="number" [(ngModel)]="currentPosition.ypos" (ngModelChange)="updatePosition()"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Angle" [(ngModel)]="currentPosition.angle"></m4-input>
+      <m4-input  prepend="Angle" append="°" type="number" [(ngModel)]="currentPosition.angle" (ngModelChange)="updatePosition()"></m4-input>
     </li>
 
     <li>
-      <m4-input prepend="Delta angle" [(ngModel)]="currentPosition.deltaAngle"></m4-input>
+      <m4-input  prepend="Delta déplacement" append="mm" type="number" [(ngModel)]="currentPosition.deltaDeplacement"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Delta déplacement" [(ngModel)]="currentPosition.deltaDeplacement"></m4-input>
+      <m4-input prepend="Delta angle" append="°" type="number" [(ngModel)]="currentPosition.deltaAngle"></m4-input>
     </li>
 
     <li>
-      <m4-input prepend="Vitesse maximum" [(ngModel)]="currentPosition.vitesseMax"></m4-input>
+      <m4-input prepend="Vitesse maximum" append="mm/s" type="number" [(ngModel)]="currentPosition.vitesseMax"></m4-input>
     </li>
 
     <li>
@@ -61,7 +61,7 @@
     </li>
 
     <li>
-      <m4-input prepend="Timeout" [(ngModel)]="currentPosition.timeout"></m4-input>
+      <m4-input prepend="Timeout" append="ms" type="number" [(ngModel)]="currentPosition.timeout"></m4-input>
     </li>
 
     <li>
