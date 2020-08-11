@@ -45,6 +45,13 @@ export class SidebarComponent implements OnInit {
     this.strategieManager.createPosition();
   }
 
+  deletePosition(){
+    if(this.currentStrategie.positions.length > 1){
+      this.strategieManager.deletePosition();
+    }
+
+  }
+
   updateSelectedPosition($event) {
     this.strategieManager.setCurrentPosition($event.target.value);
   }

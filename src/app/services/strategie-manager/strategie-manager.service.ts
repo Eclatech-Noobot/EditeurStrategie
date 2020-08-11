@@ -55,6 +55,13 @@ export class StrategieManagerService {
     this.currentStrategie.next(this.currentStrat);
   }
 
+  deletePosition(){
+    this.currentStrat.positions.splice(this.currentPos.index,1)
+
+    this.currentPosition.next(this.currentStrat.positions[0])
+    this.currentStrategie.next(this.currentStrat);
+  }
+
   setCurrentPosition(index: number){
     this.saveCurrentPosition();
     for (let pos of this.currentStrat.positions) {
@@ -68,5 +75,13 @@ export class StrategieManagerService {
   refreshValues(){
     this.currentStrategie.next(this.currentStrat);
     this.currentPosition.next(this.currentPos);
+  }
+
+  invertStrategy(){
+    for(let pos of this.currentStrat.positions){
+      pos.xpos = 3000 - pos.xpos;
+      pos.angle = pos.angle * (-1);
+    }
+    this.refreshValues();
   }
 }

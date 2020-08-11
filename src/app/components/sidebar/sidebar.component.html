@@ -25,7 +25,7 @@
           </button>
         </div>
         <div class="cell">
-          <button m4-button special-btn="image" class="icon-right">
+          <button m4-button special-btn="image" (click)="deletePosition()" class="icon-right">
             <span class="mif-minus icon"></span>
             <span class="caption">Supprimer</span>
           </button>
@@ -33,27 +33,27 @@
       </div>
     </div>
     <li>
-      <m4-input prepend="X" append="mm" type="number" [(ngModel)]="currentPosition.xpos" (ngModelChange)="updatePosition()"></m4-input>
+      <m4-input prepend="X" append="mm"  [(ngModel)]="currentPosition.xpos" (ngModelChange)="updatePosition()"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Y" append="mm" type="number" [(ngModel)]="currentPosition.ypos" (ngModelChange)="updatePosition()"></m4-input>
+      <m4-input  prepend="Y" append="mm"  [(ngModel)]="currentPosition.ypos" (ngModelChange)="updatePosition()"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Angle" append="°" type="number" [(ngModel)]="currentPosition.angle" (ngModelChange)="updatePosition()"></m4-input>
+      <m4-input  prepend="Angle" append="degrès"  [(ngModel)]="currentPosition.angle" (ngModelChange)="updatePosition()"></m4-input>
     </li>
 
     <li>
-      <m4-input  prepend="Delta déplacement" append="mm" type="number" [(ngModel)]="currentPosition.deltaDeplacement"></m4-input>
+      <m4-input  prepend="Delta D" append="mm"  [(ngModel)]="currentPosition.deltaDeplacement"></m4-input>
     </li>
 
     <li>
-      <m4-input prepend="Delta angle" append="°" type="number" [(ngModel)]="currentPosition.deltaAngle"></m4-input>
+      <m4-input prepend="Delta A" append="degrès"  [(ngModel)]="currentPosition.deltaAngle"></m4-input>
     </li>
 
     <li>
-      <m4-input prepend="Vitesse maximum" append="mm/s" type="number" [(ngModel)]="currentPosition.vitesseMax"></m4-input>
+      <m4-input prepend="Vitesse max" append="mm/s"  [(ngModel)]="currentPosition.vitesseMax"></m4-input>
     </li>
 
     <li>
@@ -61,7 +61,7 @@
     </li>
 
     <li>
-      <m4-input prepend="Timeout" append="ms" type="number" [(ngModel)]="currentPosition.timeout"></m4-input>
+      <m4-input [disabled]="!currentPosition.attenteAction" prepend="Timeout" append="ms"  [(ngModel)]="currentPosition.timeout"></m4-input>
     </li>
 
     <li>
