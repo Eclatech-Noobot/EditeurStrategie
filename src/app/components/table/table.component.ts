@@ -1,8 +1,8 @@
-import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewChecked, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {DraggableDirective, DragPosition} from "ng-metro4";
-import {Subject} from "rxjs";
 import {Position} from "../../model/position/position";
 import {StrategieManagerService} from "../../services/strategie-manager/strategie-manager.service";
+import {Strategie} from "../../model/strategie/strategie";
 
 @Component({
   selector: 'table',
@@ -14,6 +14,8 @@ export class TableComponent implements AfterViewChecked {
   @ViewChild(DraggableDirective, { static: true }) draggable: DraggableDirective;
   @ViewChild("table", { static: true }) img: ElementRef;
   @ViewChild("robot", { static: true }) robot: ElementRef;
+
+  refreshStepper: boolean = true;
 
   /*
 
@@ -40,8 +42,9 @@ export class TableComponent implements AfterViewChecked {
   robotHeight: number = 100;
 
   currentPosition: Position = new Position(0,150,150,0,0,0,0,false,0,"","");
+  currentStrategie: Strategie = new Strategie("Sans Nom", new Date().toUTCString(), new Date().toUTCString(), 0, new Array<Position>());
 
-  constructor(private strategieManager: StrategieManagerService) {
+  constructor(public strategieManager: StrategieManagerService) {
     // Listening to position updates
     this.strategieManager.currentPosition.subscribe( val => {
       //console.log("New pos : ",val);
@@ -54,6 +57,12 @@ export class TableComponent implements AfterViewChecked {
       // Setting robot position
       this.draggable.setPosition({x: xPos, y:yPos});
     });
+    this.strategieManager.currentStrategie.subscribe( val => {
+      console.log(val);
+      this.currentStrategie = val;
+      this.refreshStepper = false;
+      this.refreshStepper = true;
+    });
   }
 
   ngOnInit(): void {
@@ -64,8 +73,8 @@ export class TableComponent implements AfterViewChecked {
     let xPos: number = Math.floor(Math.floor(($event.x + this.robotWidth/2) * this.tableWidthInMm) / this.img.nativeElement.width);
     let yPos: number = Math.floor(Math.floor(($event.y + this.robotHeight/2) * this.tableHeightInMm) / this.img.nativeElement.height);
     console.log("Real pos, x : "+xPos+" y : "+yPos);
-    this.currentPosition.xpos = xPos;
-    this.currentPosition.ypos = yPos;
+    xPos + this.robotWidthInMm/2 > this.tableWidthInMm ? this.currentPosition.xpos = this.tableWidthInMm - this.robotWidthInMm/2 : this.currentPosition.xpos = xPos;
+    yPos + this.robotHeightInMm/2 > this.tableHeightInMm ? this.currentPosition.ypos = this.tableHeightInMm - this.robotHeightInMm/2 : this.currentPosition.ypos = yPos;
     this.strategieManager.currentPosition.next(this.currentPosition);
   }
 

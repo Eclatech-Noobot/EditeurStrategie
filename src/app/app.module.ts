@@ -11,13 +11,15 @@ import { TableComponent } from './components/table/table.component';
 import { AngularFireModule } from "@angular/fire";
 import { environment } from "../environments/environment";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
+import { StepperComponent } from './components/stepper/stepper.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SidebarComponent,
-    TableComponent
+    TableComponent,
+    StepperComponent
   ],
   imports: [
     BrowserModule,

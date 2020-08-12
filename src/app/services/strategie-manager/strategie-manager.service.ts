@@ -56,7 +56,17 @@ export class StrategieManagerService {
   }
 
   deletePosition(){
-    this.currentStrat.positions.splice(this.currentPos.index,1)
+    let newPositions: Array<Position> = new Array<Position>();
+    let isRemoved = false;
+    for (let pos of this.currentStrat.positions) {
+      if (pos.index !== this.currentPos.index) {
+        if (isRemoved) {
+          pos.index--;
+        }
+        newPositions.push(pos);
+      } else isRemoved = true;
+    }
+    this.currentStrat.positions = newPositions;
 
     this.currentPosition.next(this.currentStrat.positions[0])
     this.currentStrategie.next(this.currentStrat);

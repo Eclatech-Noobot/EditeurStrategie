@@ -16,7 +16,8 @@
       <img #table class="tablePicture" src="assets/images/Tapis_de_jeu.png">
     </div>
     <div class="card-footer">
-      <div class="steps" data-role="stepper" data-steps="5" data-step="3" [ngStyle]="{width: this.img.nativeElement.width == 0 ? 200 : this.img.nativeElement.width}"></div>
+      <!--<div *ngIf="refreshStepper" class="steps" data-role="stepper" [attr.data-steps]="strategieManager.currentStrat.positions.length" [attr.data-step]="currentPosition.index" [ngStyle]="{width: this.img.nativeElement.width == 0 ? 200 : this.img.nativeElement.width}"></div>-->
+      <stepper *ngIf="refreshStepper" [totalSteps]="strategieManager.currentStrat.positions.length" [currentStep]="currentPosition.index"></stepper>
     </div>
   </div>
 </div>
